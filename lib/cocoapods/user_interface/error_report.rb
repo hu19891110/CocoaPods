@@ -2,7 +2,7 @@
 
 require 'rbconfig'
 require 'cgi'
-require 'inspector'
+require 'gh_inspector'
 
 module Pod
   module UserInterface
@@ -114,7 +114,7 @@ EOS
         end
         
         def search_for_exceptions(exception)
-          inspector = Inspector::Inspector.new "cocoapods", "cocoapods"
+          inspector = GhInspector::Inspector.new "cocoapods", "cocoapods"
           message_delegate = UserInterface::InspectorReporter.new
           inspector.search_exception exception, message_delegate
         end

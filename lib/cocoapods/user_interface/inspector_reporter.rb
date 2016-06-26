@@ -1,3 +1,5 @@
+require 'uri'
+
 module Pod
   module UserInterface
     # Redirects GH-issues delegate callbacks to CocoaPods UI methods.
@@ -26,16 +28,18 @@ module Pod
 
       # Called when there have been networking issues in creating the report.
       def inspector_could_not_create_report(error, query, inspector)
+        safe_query = URI.escape query
         UI.puts "Could not access the GitHub API, you may have better luck via the website."
-        UI.puts "https://github.com/#{inspector.repo_owner}/#{inspector.repo_name}/search?q=#{query}&type=Issues&utf8=✓"
+        UI.puts "https://github.com/#{inspector.repo_owner}/#{inspector.repo_name}/search?q=#{safe_query}&type=Issues&utf8=✓"
         UI.puts "Error: #{error.name}"
       end
 
       private
 
       def print_issue_full(issue)
+        safe_url = URI.escape issue.html_url
         UI.puts " - #{issue.title}"
-        UI.puts "   #{issue.html_url} [#{issue.state}] [#{issue.comments} comment#{issue.comments == 1 ? '' : 's'}]"
+        UI.puts "   #{safe_url} [#{issue.state}] [#{issue.comments} comment#{issue.comments == 1 ? '' : 's'}]"
         UI.puts "   #{pretty_date(issue.updated_at)}"
         UI.puts ""
       end

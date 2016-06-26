@@ -1,5 +1,5 @@
 require File.expand_path('../../../spec_helper', __FILE__)
-require 'inspector'
+require 'gh_inspector'
 
 # A quiet version of Evidence, so tests don't echo
 class SilentEvidence
@@ -17,7 +17,7 @@ end
 module Pod
   describe UserInterface::InspectorReporter do
     it "handles inspector_started_query" do
-      inspector = Inspector::Inspector.new "cocoapods", "cocoapods"
+      inspector = GhInspector::Inspector.new "cocoapods", "cocoapods"
       reporter = UserInterface::InspectorReporter.new
       reporter.inspector_started_query("query", inspector)
         
@@ -29,7 +29,7 @@ module Pod
       fixture_json_text = File.read SpecHelper.fixture("github_search_response.json")
       Inspector::Sidekick.any_instance.expects(:get_api_results).with(url).returns(JSON.parse(fixture_json_text))
       
-      inspector = Inspector::Inspector.new "cocoapods", "cocoapods"
+      inspector = GhInspector::Inspector.new "cocoapods", "cocoapods"
       report = inspector.search_query 'Testing', SilentEvidence.new
       
       reporter = UserInterface::InspectorReporter.new
