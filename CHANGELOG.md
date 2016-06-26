@@ -24,6 +24,11 @@ To install release candidates run `[sudo] gem install cocoapods --pre`
   [Mark Schall](https://github.com/maschall)
   [#5568](https://github.com/CocoaPods/CocoaPods/pull/5568)
 
+* Shows GitHub Issues that could be related to potential issues.  
+  [Orta Therox](https://github.com/orta)
+  [#4817](https://github.com/CocoaPods/CocoaPods/issues/4817)
+
+
 ##### Bug Fixes
 
 * Fix local pod platform conflict error message.  
