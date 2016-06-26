@@ -112,12 +112,12 @@ EOS
       end
     
       it "handles inspector_successfully_recieved_report" do
-        time = Time.new(2016, 05, 13)
+        time = Time.new(2016, 5, 13)
         Time.stubs(:now).returns(time)
         
-        url = 'https://api.github.com/search/issues?q=Testing%252Brepo%253Acocoapods%252Fcocoapods&sort=created&order=asc'
+        url = 'https://api.github.com/search/issues?q=Testing+repo:cocoapods/cocoapods'
         fixture_json_text = File.read SpecHelper.fixture("github_search_response.json")
-        Inspector::Sidekick.any_instance.expects(:get_api_results).with(url).returns(JSON.parse(fixture_json_text))
+        GhInspector::Sidekick.any_instance.expects(:get_api_results).with(url).returns(JSON.parse(fixture_json_text))
         
         error = NameError.new("Testing", "orta")
         @report.search_for_exceptions error
