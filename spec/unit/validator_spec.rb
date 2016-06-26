@@ -444,7 +444,7 @@ module Pod
         pods_project = Xcodeproj::Project.open(validator.validation_dir + 'Pods/Pods.xcodeproj')
 
         pods_project.native_targets.find { |nt| nt.name == 'JSONKit' }.resolved_build_setting('OTHER_CFLAGS').each do |_, value|
-          value.should == %w($(inherited) -Wincomplete-umbrella)
+          value.should == '$(inherited) -Wincomplete-umbrella'
         end
       end
 
@@ -596,7 +596,7 @@ module Pod
           project = Xcodeproj::Project.open(@validator.validation_dir + 'App.xcodeproj')
           project.native_targets.first.build_configurations.map do |bc|
             bc.build_settings['FRAMEWORK_SEARCH_PATHS']
-          end.uniq.should == [%w($(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks")]
+          end.uniq.should == ['$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks"']
         end
       end
 
